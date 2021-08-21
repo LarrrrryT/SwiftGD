@@ -14,7 +14,7 @@ public class Image {
         case horizontal, vertical, both
     }
 
-    private var internalImage: gdImagePtr
+    var internalImage: gdImagePtr
 
     public var size: Size {
         return Size(width: internalImage.pointee.sx, height: internalImage.pointee.sy)
