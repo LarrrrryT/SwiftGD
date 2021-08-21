@@ -359,6 +359,7 @@ extension Image {
     /// - Returns: The image data
     /// - Throws: `Error` if the export of `self` in specified raster format failed.
     public func export(as format: ExportableFormat = .png) throws -> Data {
+        gdImageInterlace(internalImage, 1)
         return try format.data(of: internalImage)
     }
 }
