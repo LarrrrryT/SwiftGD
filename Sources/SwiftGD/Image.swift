@@ -361,3 +361,17 @@ extension Image {
         return try format.data(of: internalImage)
     }
 }
+
+extension Image {
+    public func resizedInterlacedTo(width: Int, applySmoothing: Bool = true) -> Image? {
+        let currentSize = size
+        let heightAdjustment = Double(width) / Double(currentSize.width)
+        let newSize = Size(width: Int32(width), height: Int32(Double(currentSize.height) * Double(heightAdjustment)))
+
+        applyInterpolation(enabled: applySmoothing, currentSize: currentSize, newSize: newSize)
+
+        guard let output = gdImageScale(internalImage, UInt32(newSize.width), UInt32(newSize.height)) else { return nil }
+        gdImageInterlace(output, 1)
+        return Image(gdImage: output)
+    }
+}
