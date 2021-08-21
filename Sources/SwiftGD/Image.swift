@@ -332,7 +332,7 @@ extension Image {
             gdImageSaveAlpha(internalImage, 1)
             gdImagePng(internalImage, outputFile)
         case "jpg", "jpeg":
-            gdImageInterlace(outputFile, 1)
+            gdImageInterlace(internalImage, 1)
             gdImageJpeg(internalImage, outputFile, Int32(quality))
         default:
             return false
