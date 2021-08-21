@@ -332,6 +332,7 @@ extension Image {
             gdImageSaveAlpha(internalImage, 1)
             gdImagePng(internalImage, outputFile)
         case "jpg", "jpeg":
+            gdImageInterlace(outputFile, 1)
             gdImageJpeg(internalImage, outputFile, Int32(quality))
         default:
             return false
@@ -371,7 +372,6 @@ extension Image {
         applyInterpolation(enabled: applySmoothing, currentSize: currentSize, newSize: newSize)
 
         guard let output = gdImageScale(internalImage, UInt32(newSize.width), UInt32(newSize.height)) else { return nil }
-        gdImageInterlace(output, 1)
         return Image(gdImage: output)
     }
 }
